@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 223475648}
   - component: {fileID: 223475647}
   m_Layer: 0
-  m_Name: Bean
+  m_Name: TempPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
