@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float speed = 5f;
 
+    private bool canMove = true;
+
     void Start()
     {
         currentDirection = up;
@@ -22,18 +24,28 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Move();
+
+        if (transform.position == destination)
+        {
+            canMove = true;
+        }
     }
 
     void Move()
     {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
-        {
-            nextPos = Vector3.forward;
-            currentDirection = up;
-            destination = transform.position + nextPos;
-        }
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
+            {
+                if (canMove == true)
+                {
+                    nextPos = Vector3.forward;
+                    currentDirection = up;
+                    destination = transform.position + nextPos;
+                    canMove = false;
+                }
 
-        transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
+            }
+
+            transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
     }
 
 
