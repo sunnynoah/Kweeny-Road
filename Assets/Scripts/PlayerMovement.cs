@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool canMove = true;
 
+    [SerializeField] private LaneSpawner spawner;
+
     void Start()
     {
         currentDirection = up;
@@ -35,8 +37,9 @@ public class PlayerMovement : MonoBehaviour
     {
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
             {
-                if (canMove == true)
+                if (canMove)
                 {
+                    spawner.GenerateLane();
                     nextPos = Vector3.forward;
                     currentDirection = up;
                     destination = transform.position + nextPos;

@@ -8,7 +8,7 @@ public class LaneSpawner : MonoBehaviour
     public Transform spawnPoint;
     private float laneOffset = 1f;
 
-    private bool GrassVersion = true;
+    private bool grassVersion = true;
     private string lastLaneType = "";
     private int consecutiveCount = 0;
 
@@ -24,15 +24,7 @@ public class LaneSpawner : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
-        {
-            GenerateLane();
-        }
-    }
-
-    void GenerateLane()
+    public void GenerateLane()
     {
         GameObject lane;
 
@@ -69,8 +61,8 @@ public class LaneSpawner : MonoBehaviour
 
     GameObject GetNextGrassPrefab()
     {
-        GameObject grass = GrassVersion ? grassPrefab1 : grassPrefab2;
-        GrassVersion = !GrassVersion; // Alternate grass version
+        GameObject grass = grassVersion ? grassPrefab1 : grassPrefab2;
+        grassVersion = !grassVersion; // Alternate grass version
         return grass;
     }
 
