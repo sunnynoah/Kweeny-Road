@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class LaneSpawner : MonoBehaviour
 {
+    public int lineWidth;
     public GameObject grassPrefab1;
     public GameObject grassPrefab2;
     public GameObject roadPrefab;
@@ -18,7 +19,7 @@ public class LaneSpawner : MonoBehaviour
     {
         lastSpawnZ = spawnPoint.position.z;
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 50; i++)
         {
             GenerateLane();
         }
@@ -50,8 +51,9 @@ public class LaneSpawner : MonoBehaviour
 
         // Instantiate the lane
         Vector3 spawnPosition = new Vector3(spawnPoint.position.x, spawnPoint.position.y, lastSpawnZ + laneOffset);
-        Instantiate(lane, spawnPosition, Quaternion.identity);
-
+        GameObject latestLine = Instantiate(lane, spawnPosition, Quaternion.identity);
+        latestLine.AddComponent<DestroyWhenPassed>();
+        latestLine.transform.localScale = new Vector3(lineWidth, 20, 1);
         // Update the Z position for the next lane
         lastSpawnZ += laneOffset;
 
