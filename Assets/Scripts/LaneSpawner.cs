@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,12 +13,15 @@ public class LaneSpawner : MonoBehaviour
     private float laneOffset = 1f;
 
     public GameObject[] cars;
+    public GameObject[] decorations;
 
     private bool grassVersion = true;
     private string lastLaneType = "";
     private int consecutiveCount = 0;
 
     private float lastSpawnZ;
+
+    public int decoRange;
 
     void Start()
     {
@@ -66,6 +70,11 @@ public class LaneSpawner : MonoBehaviour
             }
         }
 
+        if (lane == grassPrefab1 || lane == grassPrefab2)
+        {
+            SpawnDecoration(spawnPosition);
+        }
+
         GameObject latestLine = Instantiate(lane, spawnPosition, Quaternion.identity);
         latestLine.AddComponent<DestroyWhenPassed>();
         latestLine.transform.localScale = new Vector3(lineWidth, 20, 1);
@@ -76,12 +85,38 @@ public class LaneSpawner : MonoBehaviour
         UpdateConsecutiveCount(lane == roadPrefab ? "Road" : "Grass");
     }
 
+    void SpawnDecoration(Vector3 spawn)
+    {
+        List<int> numbers = new List<int>();
+
+        for (int i = -decoRange; i <= decoRange; i++)
+        {
+            if (i <= -2 || i >= 2)
+            {
+                numbers.Add(i);
+            }
+        }
+
+
+        for (int i = 0; i < Random.Range(0, 20); i++)
+        {
+            GameObject decoration = Instantiate(decorations[Random.Range(0, decorations.Length)], spawn, Quaternion.identity);
+            decoration.transform.localScale = new Vector3(0.7f, decoration.transform.localScale.y, 0.7f);
+
+            int index = Random.Range(0, numbers.Count);
+            int shift = numbers[index];
+            numbers.Remove(index);
+            decoration.transform.position = new Vector3(decoration.transform.position.x + shift, -1.5f, decoration.transform.position.z);
+        }
+    }
+
     GameObject GetNextGrassPrefab()
     {
         GameObject grass = grassVersion ? grassPrefab1 : grassPrefab2;
         grassVersion = !grassVersion; // Alternate grass version
         return grass;
     }
+
 
     void ResetConsecutiveCount()
     {

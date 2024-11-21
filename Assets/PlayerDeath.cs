@@ -34,7 +34,10 @@ public class PlayerDeath : MonoBehaviour
         if (alive)
         {
             int score = movement.score;
-            PlayerPrefs.SetInt("highscore", score);
+            if (score > PlayerPrefs.GetInt("highscore"))
+            {
+                PlayerPrefs.SetInt("highscore", score);
+            }
             alive = false;
             transform.localScale = new Vector3(transform.localScale.x, 0.1f, transform.localScale.y);
             movement.canMove = false;
