@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Declared alle variables samen onder Vector 3
+    InputControls controls;
+
     Vector3 up = Vector3.zero,
-        currentDirection = Vector3.zero;
+    currentDirection = Vector3.zero;
 
     Vector3 nextPos, destination, direction;
 
     public float speed = 5f;
 
-    private bool canMove = true;
+    private bool moving = false;
+    public bool canMove = true;
 
     [SerializeField] private LaneSpawner spawner;
 
@@ -21,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
         currentDirection = up;
         nextPos = Vector3.forward;
         destination = transform.position;
+        controls = new InputControls();
+        controls.Enable();
     }
 
     void Update()
@@ -29,21 +33,21 @@ public class PlayerMovement : MonoBehaviour
 
         if (transform.position == destination)
         {
-            canMove = true;
+            moving = false;
         }
     }
 
     void Move()
     {
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
+            if (controls.Player.Move.triggered && canMove)
             {
-                if (canMove)
+                if (!moving)
                 {
                     spawner.GenerateLane();
                     nextPos = Vector3.forward;
                     currentDirection = up;
                     destination = transform.position + nextPos;
-                    canMove = false;
+                    moving = true;
                 }
 
             }
