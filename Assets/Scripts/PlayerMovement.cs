@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public int score;
+    [SerializeField] TextMeshProUGUI scoreDisp;
+
     InputControls controls;
+
 
     Vector3 up = Vector3.zero,
     currentDirection = Vector3.zero;
@@ -43,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!moving)
                 {
+                    score++;
+                    scoreDisp.text = score.ToString();
                     spawner.GenerateLane();
                     nextPos = Vector3.forward;
                     currentDirection = up;
