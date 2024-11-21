@@ -15,6 +15,10 @@ public class CarMovement : MonoBehaviour
 
         speed = Random.Range(0, 120);
         speed = (speed / 100) + 1;
+        if (this.name.Contains("Car3"))
+        {
+            speed *= 1.5f;
+        }
     }
 
     // Update is called once per frame
