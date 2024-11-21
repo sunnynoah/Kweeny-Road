@@ -619,6 +619,7 @@ MonoBehaviour:
   - {fileID: 7577592453648357344, guid: 75aaa3917a9e3e941b18b589d23eee42, type: 3}
   - {fileID: 7310648733352647525, guid: 7facef6eaa5c858408f74ab1964d1934, type: 3}
   - {fileID: 9115822642343959058, guid: 9828891de707f5c41b35018cbb83541b, type: 3}
+  skibidiCar: {fileID: 620788540912485854, guid: 20c9f253fd094eb43a08065dc757de5f, type: 3}
   decorations:
   - {fileID: 5637617613940397648, guid: 3649e8e2f81eed045926a5a56586512b, type: 3}
   - {fileID: 5642919508362971455, guid: 5b378f0d7c89fe644a1ed54f268a250b, type: 3}
@@ -1309,6 +1310,7 @@ MonoBehaviour:
   deathUI: {fileID: 2084291405}
   regularUI: {fileID: 1253100997}
   finalScore: {fileID: 1935321331}
+  deathEffect: {fileID: 4822132742034759252, guid: 689799750c646a240b6c2ac6410b68dd, type: 3}
 --- !u!54 &1646456569
 Rigidbody:
   m_ObjectHideFlags: 0

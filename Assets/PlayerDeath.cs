@@ -7,6 +7,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerDeath : MonoBehaviour
 {
+    float nextCooldown;
     InputControls controls;
     private bool alive = true;
     [SerializeField] PlayerMovement movement;
@@ -14,6 +15,8 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] GameObject deathUI;
     [SerializeField] GameObject regularUI;
     [SerializeField] TextMeshProUGUI finalScore;
+
+    [SerializeField] GameObject deathEffect;
 
     private void Start()
     {
@@ -33,13 +36,15 @@ public class PlayerDeath : MonoBehaviour
     {
         if (alive)
         {
+            nextCooldown = 0.5f;
+            Instantiate(deathEffect, transform.position, Quaternion.Euler(-90, 0, 0));
             int score = movement.score;
             if (score > PlayerPrefs.GetInt("highscore"))
             {
                 PlayerPrefs.SetInt("highscore", score);
             }
             alive = false;
-            transform.localScale = new Vector3(transform.localScale.x, 0.1f, transform.localScale.y);
+            transform.localScale = new Vector3(1.2f, 0.1f, 1.2f);
             movement.canMove = false;
 
             regularUI.SetActive(false);
@@ -50,9 +55,16 @@ public class PlayerDeath : MonoBehaviour
 
     private void Update()
     {
-        if (!alive && controls.Player.Any.triggered)
+        if (nextCooldown <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if (!alive && controls.Player.Any.triggered)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+        }
+        else
+        {
+            nextCooldown -= Time.deltaTime;
         }
     }
 }

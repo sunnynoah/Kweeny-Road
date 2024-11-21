@@ -13,6 +13,7 @@ public class LaneSpawner : MonoBehaviour
     private float laneOffset = 1f;
 
     public GameObject[] cars;
+    public GameObject skibidiCar;
     public GameObject[] decorations;
 
     private bool grassVersion = true;
@@ -64,6 +65,10 @@ public class LaneSpawner : MonoBehaviour
                     lane = roadPrefab;
 
                     GameObject car = cars[Random.Range(0, cars.Length)];
+                    if (Random.Range(0, 100) == 0)
+                    {
+                        car = skibidiCar;
+                    }
                     GameObject latestCar = Instantiate(car, spawnPosition, Quaternion.Euler(0, 90, 0));
                     latestCar.transform.position = new Vector3(latestCar.transform.position.x, -1.5f, latestCar.transform.position.z);
                 }
